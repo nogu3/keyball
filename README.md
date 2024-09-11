@@ -63,6 +63,6 @@ https://sekigon-gonnoc.github.io/promicro-web-updater/index.html
 4. selected file → qmk/keyball_keyball39_zen.hex
 5. left keyboard only connect → reset button double tap
 6. flash on pro micro web updater  
-Verify OK diplay is done.  
+Verify OK display is done.  
 right keyboard same process.  
 
