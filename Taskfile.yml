@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  build:
+    dir: ../qmk
+    cmds:
+      - util/docker_build.sh keyball/keyball39:zen
+
+
