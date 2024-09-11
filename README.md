@@ -46,3 +46,23 @@ See [document for firmware source code](./qmk_firmware/keyboards/keyball/readme.
 ### Pre-compiled Firmwares
 
 (TO BE DOCUMENTED)
+
+## Build own firmware
+1. Files are change.
+```
+qmk_firmware/keyboards/keyball/keyball39/keymaps/zen
+```
+2. run `make build`.
+```
+task build
+```
+3. open pro micro web updater
+```
+https://sekigon-gonnoc.github.io/promicro-web-updater/index.html
+```
+4. selected file → qmk/keyball_keyball39_zen.hex
+5. left keyboard only connect → reset button double tap
+6. flash on pro micro web updater
+Verify OK diplay is done.
+right keyboard same process.
+
