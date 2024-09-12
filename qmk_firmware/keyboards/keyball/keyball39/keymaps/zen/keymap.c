@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // mouse layer
   [1] = LAYOUT_universal(
-    XXXXXXX        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , MS_BTN4    , MS_BTN3       , MS_BTN5       , XXXXXXX       ,
-    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , MS_BTN1    , SCRL_MO       , MS_BTN2       , _______       ,
+    XXXXXXX        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , KC_BTN3       , KC_BTN5       , XXXXXXX       ,
+    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN1    , SCRL_MO       , KC_BTN2       , _______       ,
     XXXXXXX        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
