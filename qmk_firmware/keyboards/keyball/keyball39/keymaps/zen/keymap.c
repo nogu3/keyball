@@ -82,10 +82,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #ifdef OLED_ENABLE
 
 #    include "lib/oledkit/oledkit.h"
+bool is_init = true;
 
 void oledkit_render_info_user(void) {
+    // FIXME use pointing_device_init_user
+    if (is_init) {
+      set_auto_mouse_enable(true);
+      is_init = false;
+    }
+
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
     keyball_oled_render_layerinfo();
 }
 #endif
+
+// FIXME use pointing_device_init_user
+/* void pointing_device_init_user(void) { */
+/*     // always required before the auto mouse feature will work */
+/*     set_auto_mouse_enable(true); */
+/* } */
