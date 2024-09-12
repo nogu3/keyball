@@ -36,15 +36,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , MS_BTN4    , MS_BTN3       , MS_BTN5       , XXXXXXX       ,
     _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , MS_BTN1    , SCRL_MO       , MS_BTN2       , _______       ,
     XXXXXXX        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______ ,
+    _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
-  
+
   // numbers layer
   [2] = LAYOUT_universal(
     XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     KC_0           , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX      ,             LCTL(KC_C) , LCTL(KC_V) , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______ ,
+    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX      ,             LCTL(KC_C) , LCTL(KC_V) , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   // symbols layer
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LSFT(KC_4)       , LSFT(KC_5)    , LSFT(KC_6)    , LSFT(KC_7)    , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_8)             , KC_EQUAL , LSFT(KC_EQUAL) ,
     LSFT(KC_1)       , LSFT(KC_2)    , LSFT(KC_3)    , KC_GRAVE      , LSFT(KC_GRAVE)     ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE , LSFT(KC_QUOTE) ,
     XXXXXXX          , XXXXXXX       , KC_SEMICOLON  , KC_BACKSLASH  , LSFT(KC_BACKSLASH) ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH , LSFT(KC_SLASH) ,
-    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX            , XXXXXXX   ,              LCTL(KC_X)         , XXXXXXX               , XXXXXXX                , XXXXXXX  , XXXXXXX        , _______ ,
+    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX            , XXXXXXX   ,              LCTL(KC_X)         , XXXXXXX               , XXXXXXX                , XXXXXXX  , XXXXXXX        , _______
   ),
 
   // arrows and keyball layer
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12           , KC_F1         , KC_F2         ,KC_F3          , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , KC_UP         , XXXXXXX       , XXXXXXX        ,
     KC_F10           , KC_F4         , KC_F5         ,KC_F6          , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
     KC_F11           , KC_F7         , KC_F8         ,KC_F9          , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    _______          , AML_TO        , XXXXXXX       , LCTL(KC_A)    , KC_DELETE         , LCTL(KC_Z)  ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______ ,
+    _______          , AML_TO        , XXXXXXX       , LCTL(KC_A)    , KC_DELETE         , LCTL(KC_Z)  ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
   // keymap template
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
   // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
   // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-  // _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______ ,
+  // _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   // ),
 };
 // clang-format on
