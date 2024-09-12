@@ -38,6 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for auto mouse layer
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 1
+// x + y
+#define KEYBALL_AUTO_MOUSE_THRESHOLD 5
 
 // for layer
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5

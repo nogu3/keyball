@@ -97,6 +97,13 @@ void oledkit_render_info_user(void) {
 }
 #endif
 
+#ifdef KEYBALL_AUTO_MOUSE_THRESHOLD
+bool auto_mouse_activation(report_mouse_t mouse_report) {
+    int16_t total_motion = abs(mouse_report.x) + abs(mouse_report.y);
+    return total_motion > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+}
+#endif
+
 // FIXME use pointing_device_init_user
 /* void pointing_device_init_user(void) { */
 /*     // always required before the auto mouse feature will work */
