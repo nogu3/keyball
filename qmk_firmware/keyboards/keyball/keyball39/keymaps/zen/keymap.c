@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // symbols layer
   [3] = LAYOUT_universal(
-    LSFT(KC_4)       , LSFT(KC_5)    , LSFT(KC_6)    , LSFT(KC_7)    , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_8)             , KC_EQUAL , LSFT(KC_EQUAL) ,
+    LSFT(KC_4)       , LSFT(KC_5)    , LSFT(KC_6)    , LSFT(KC_7)    , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_EQUAL , LSFT(KC_EQUAL) ,
     LSFT(KC_1)       , LSFT(KC_2)    , LSFT(KC_3)    , KC_GRAVE      , LSFT(KC_GRAVE)     ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE , LSFT(KC_QUOTE) ,
     XXXXXXX          , XXXXXXX       , KC_SEMICOLON  , KC_BACKSLASH  , LSFT(KC_BACKSLASH) ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH , LSFT(KC_SLASH) ,
     _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX            , XXXXXXX   ,              LCTL(KC_X)         , XXXXXXX               , XXXXXXX                , XXXXXXX  , XXXXXXX        , _______
