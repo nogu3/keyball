@@ -185,6 +185,8 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_move(keyball_motion_
     m->y = 0;
 }
 
+void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m, report_mouse_t *r, bool is_left);
+
 __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
     // consume motion of trackball.
     int16_t div = 1 << (keyball_get_scroll_div() - 1);
@@ -233,6 +235,8 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
             break;
     }
 #endif
+
+  keyball_on_apply_motion_to_mouse_scroll_user(m, r, is_left);
 }
 
 static void motion_to_mouse(keyball_motion_t *m, report_mouse_t *r, bool is_left, bool as_scroll) {

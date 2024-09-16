@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
+#include "lib/keyball/keyball.h"
+
+#ifdef OS_DETECTION_ENABLE
+  #include "os_detection.h"
+#endif
 
 enum Layers {
   _QWERTY,
@@ -43,14 +48,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_FF_ALT_SPACE] = ACTION_TAP_DANCE_DOUBLE(KC_F, LALT(KC_SPACE)),
 };
 
+// alias
+#define LCS(kc) LCTL(LSFT(kc))
+#define SYMBOL_OR_SPACE LT(_SYMBOLS,KC_SPACE)
+#define WINDOW_OR_SPACE LT(_WINDOW_AND_FN,KC_SPACE)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_universal(
-    KC_Q           , KC_W    , KC_E    , KC_R                , KC_T                   ,                         KC_Y                        , KC_U                  , KC_I          , KC_O          , KC_P              ,
-    LCTL_T(KC_A)   , KC_S    , KC_D    , TD(TD_FF_ALT_SPACE) , KC_G                   ,                         KC_H                        , KC_J	                 , KC_K          , KC_L          , LCTL_T(KC_ENTER)  ,
-    KC_Z           , KC_X    , KC_C    , KC_V                , KC_B                   ,                         KC_N                        , KC_M                  , KC_COMM       , KC_DOT        , KC_TAB            ,
-    LSFT_T(KC_ESC) , KC_LWIN , KC_LALT , LALT_T(KC_LNG2)     , MO(_NUMBERS_AND_INPUT) ,LT(_SYMBOLS,KC_SPACE),   LT(_WINDOW_AND_FN,KC_SPACE) , MO(_ARROWS_AND_INPUT) , _______       , _______       , _______           , RSFT_T(KC_LNG1)
+    KC_Q           , KC_W    , KC_E    , KC_R                , KC_T                   ,                     KC_Y            , KC_U                  , KC_I          , KC_O          , KC_P              ,
+    LCTL_T(KC_A)   , KC_S    , KC_D    , TD(TD_FF_ALT_SPACE) , KC_G                   ,                     KC_H            , KC_J                  , KC_K          , KC_L          , LCTL_T(KC_ENTER)  ,
+    KC_Z           , KC_X    , KC_C    , KC_V                , KC_B                   ,                     KC_N            , KC_M                  , KC_COMM       , KC_DOT        , KC_TAB            ,
+    LSFT_T(KC_ESC) , KC_LWIN , KC_LALT , LALT_T(KC_LNG2)     , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   WINDOW_OR_SPACE , MO(_ARROWS_AND_INPUT) , _______       , _______       , _______           , RSFT_T(KC_LNG1)
   ),
 
   [_MOUSE] = LAYOUT_universal(
@@ -78,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , XXXXXXX        ,
     XXXXXXX          , KC_BACKSPACE  , KC_DELETE     , XXXXXXX       , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    _______          , AML_TO        , XXXXXXX       , LCTL(KC_A)    , RCS(KC_Z)         , LCTL(KC_Z)  ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
+    _______          , AML_TO        , XXXXXXX       , LCTL(KC_A)    , LCS(KC_Z)         , LCTL(KC_Z)  ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
   [_WINDOW_AND_FN] = LAYOUT_universal(
-    KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , LCTL(KC_KP_MINUS) , RCS(KC_S)     , LCTL(KC_KP_PLUS) , XXXXXXX        ,
-    KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)     , KC_F11        , SWIN(KC_RIGHT)   , XXXXXXX        ,
+    KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , LCTL(KC_KP_MINUS) , LCS(KC_S)     , LCTL(KC_KP_PLUS) , XXXXXXX        ,
+    KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)     , LWIN(KC_UP)   , SWIN(KC_RIGHT)   , XXXXXXX        ,
     KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        ,
     _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        , _______
   ),
@@ -159,6 +168,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     return true;
+}
+
+#endif
+
+
+#ifdef KEYBALL_REVERSE_SCROLL
+
+void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
+    // reverse scroll
+    os_variant_t os = detected_host_os();
+    switch (os) {
+      case OS_MACOS:
+        r->h = -r->h;
+        r->v = -r->v;
+        break;
+      default:
+        // do nothing
+        break;
+    }
 }
 
 #endif
