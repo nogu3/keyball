@@ -30,7 +30,11 @@ enum Layers {
 };
 
 enum TapDances {
-  TD_JJ_ALT_SPACE
+  TD_JJ_ALT_SPACE,
+};
+
+enum CustomKeycodes {
+  SCRL_MO_HOR,
 };
 
 tap_dance_action_t tap_dance_actions[] = {
@@ -49,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_MOUSE] = LAYOUT_universal(
-    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , XXXXXXX       , KC_BTN5       , XXXXXXX       ,
+    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , SCRL_MO_HOR   , KC_BTN5       , XXXXXXX       ,
     KC_LCTL                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN1    , SCRL_MO       , KC_BTN2       , _______       ,
     XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     LSFT_T(TO(_QWERTY))    , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
@@ -121,6 +125,32 @@ void oledkit_render_info_user(void) {
 bool auto_mouse_activation(report_mouse_t mouse_report) {
     int16_t total_motion = abs(mouse_report.x) + abs(mouse_report.y);
     return total_motion > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+}
+#endif
+
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case SCRL_MO_HOR:
+            return true;
+    }
+    return false;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SCRL_MO_HOR:
+      if (record->event.pressed) {
+        register_code(KC_LEFT_SHIFT);
+      } else {
+        unregister_code(KC_LEFT_SHIFT);
+      }
+      keyball_set_scroll_mode(record->event.pressed);
+
+      return false;
+  }
+
+  return true;
 }
 #endif
 
