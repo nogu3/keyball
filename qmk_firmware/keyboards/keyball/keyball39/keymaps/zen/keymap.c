@@ -30,32 +30,33 @@ enum Layers {
 };
 
 enum TapDances {
-  TD_JJ_ALT_SPACE,
+  TD_FF_ALT_SPACE,
 };
 
 enum CustomKeycodes {
-  SCRL_MO_HOR,
+  SCRL_MO_HOR = SAFE_RANGE,
+  SCRL_MO_ZOOM,
 };
 
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for j, twice for Alt + Space
-    [TD_JJ_ALT_SPACE] = ACTION_TAP_DANCE_DOUBLE(KC_J, LALT(KC_SPACE)),
+    // Tap once for f, twice for Alt + Space
+    [TD_FF_ALT_SPACE] = ACTION_TAP_DANCE_DOUBLE(KC_F, LALT(KC_SPACE)),
 };
 
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_universal(
-    KC_Q           , KC_W    , KC_E    , KC_R          , KC_T                   ,                          KC_Y                        , KC_U                    , KC_I          , KC_O          , KC_P              ,
-    LCTL_T(KC_A)   , KC_S    , KC_D    , KC_F          , KC_G                   ,                          KC_H                        , TD(TD_JJ_ALT_SPACE)     , KC_K          , KC_L          , LCTL_T(KC_ENTER)  ,
-    KC_Z           , KC_X    , KC_C    , KC_V          , KC_B                   ,                          KC_N                        , KC_M                    , KC_COMM       , KC_DOT        , KC_TAB            ,
-    LSFT_T(KC_ESC) , KC_LWIN , KC_LALT ,LALT_T(KC_LNG2), MO(_NUMBERS_AND_INPUT) ,LT(_SYMBOLS,KC_SPACE),    LT(_WINDOW_AND_FN,KC_SPACE) , MO(_ARROWS_AND_INPUT) , _______       , _______       , _______           , RSFT_T(KC_LNG1)
+    KC_Q           , KC_W    , KC_E    , KC_R                , KC_T                   ,                         KC_Y                        , KC_U                  , KC_I          , KC_O          , KC_P              ,
+    LCTL_T(KC_A)   , KC_S    , KC_D    , TD(TD_FF_ALT_SPACE) , KC_G                   ,                         KC_H                        , KC_J	                 , KC_K          , KC_L          , LCTL_T(KC_ENTER)  ,
+    KC_Z           , KC_X    , KC_C    , KC_V                , KC_B                   ,                         KC_N                        , KC_M                  , KC_COMM       , KC_DOT        , KC_TAB            ,
+    LSFT_T(KC_ESC) , KC_LWIN , KC_LALT , LALT_T(KC_LNG2)     , MO(_NUMBERS_AND_INPUT) ,LT(_SYMBOLS,KC_SPACE),   LT(_WINDOW_AND_FN,KC_SPACE) , MO(_ARROWS_AND_INPUT) , _______       , _______       , _______           , RSFT_T(KC_LNG1)
   ),
 
   [_MOUSE] = LAYOUT_universal(
     XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , SCRL_MO_HOR   , KC_BTN5       , XXXXXXX       ,
     KC_LCTL                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN1    , SCRL_MO       , KC_BTN2       , _______       ,
-    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , SCRL_MO_ZOOM  , XXXXXXX       , XXXXXXX       ,
     LSFT_T(TO(_QWERTY))    , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
@@ -132,26 +133,34 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case SCRL_MO_HOR:
+        case SCRL_MO_ZOOM:
             return true;
     }
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SCRL_MO_HOR:
-      if (record->event.pressed) {
-        register_code(KC_LEFT_SHIFT);
-      } else {
-        unregister_code(KC_LEFT_SHIFT);
-      }
-      keyball_set_scroll_mode(record->event.pressed);
-
-      return false;
-  }
-
-  return true;
+void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode, uint16_t modifier_key) {
+    if (enable_scroll_mode) {
+      register_code(modifier_key);
+    } else {
+      unregister_code(modifier_key);
+    }
+    keyball_set_scroll_mode(enable_scroll_mode);
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+      case SCRL_MO_HOR:
+        keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_SHIFT);
+        return false;
+      case SCRL_MO_ZOOM:
+        keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_CTRL);
+        return false;
+    }
+
+    return true;
+}
+
 #endif
 
 // FIXME use pointing_device_init_user
