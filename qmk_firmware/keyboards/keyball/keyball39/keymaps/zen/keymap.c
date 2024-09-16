@@ -46,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            LCA(KC_T)  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    KC_0           , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX    , KC_F7         , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX      ,             LCTL(KC_C) , LCTL(KC_V) , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            LCA(KC_T)  , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    KC_0           , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , KC_BACKSPACE , KC_DELETE     , KC_F7         , XXXXXXX       ,
+    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX      ,             LCTL(KC_C) , LCTL(KC_V)   , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
@@ -67,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_WINDOW_AND_FN] = LAYOUT_universal(
-    KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , LCTL(KC_KP_PLUS) , RCS(KC_S)     , LCTL(KC_KP_MINUS) , XXXXXXX        ,
-    KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)    , KC_F11        , SWIN(KC_RIGHT)    , XXXXXXX        ,
-    KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX          , XXXXXXX       , XXXXXXX           , XXXXXXX        ,
-    _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX          , XXXXXXX       , XXXXXXX           , XXXXXXX        , _______
+    KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , LCTL(KC_KP_MINUS) , RCS(KC_S)     , LCTL(KC_KP_PLUS) , XXXXXXX        ,
+    KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)     , KC_F11        , SWIN(KC_RIGHT)   , XXXXXXX        ,
+    KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        ,
+    _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        , _______
   ),
 
   // keymap template
