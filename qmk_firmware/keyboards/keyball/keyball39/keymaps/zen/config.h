@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #define AUTO_MOUSE_DEFAULT_LAYER 1
 // x + y
-#define KEYBALL_AUTO_MOUSE_THRESHOLD 3
+#define KEYBALL_AUTO_MOUSE_THRESHOLD 2
 #define KEYBALL_REVERSE_SCROLL
 
 // for layer
