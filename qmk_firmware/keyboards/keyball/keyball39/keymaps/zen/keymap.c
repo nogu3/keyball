@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WINDOW_AND_FN] = LAYOUT_universal(
     KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , LCTL(KC_KP_MINUS) , LCS(KC_S)     , LCTL(KC_KP_PLUS) , XXXXXXX        ,
     KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)     , LWIN(KC_UP)   , SWIN(KC_RIGHT)   , XXXXXXX        ,
-    KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        ,
+    KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX           , KC_COMMA      , KC_DOT          , XXXXXXX        ,
     _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        , _______
   ),
 
