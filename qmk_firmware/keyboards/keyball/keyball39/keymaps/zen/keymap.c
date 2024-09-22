@@ -32,6 +32,8 @@ enum Layers {
   _SYMBOLS,
   _ARROWS_AND_INPUT,
   _WINDOW_AND_FN,
+  _SIDE_SCROLL,
+  _ZOOM,
 };
 
 enum TapDances {
@@ -50,44 +52,49 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // alias
 #define LCS(kc) LCTL(LSFT(kc))
+// LT
 #define SYMBOL_OR_SPACE LT(_SYMBOLS,KC_SPACE)
-#define WINDOW_OR_SPACE LT(_WINDOW_AND_FN,KC_SPACE)
+#define WINDOW_OR_J LT(_WINDOW_AND_FN,KC_J)
+#define WINDOW_OR_D LT(_WINDOW_AND_FN,KC_D)
+#define SCROLL_OR_K LT(_SYMBOLS,KC_K)
+#define SIDE_SCROLL_OR_I LT(_SIDE_SCROLL,KC_I)
+#define ZOOM_OR_O LT(_ZOOM,KC_O)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_universal(
-    KC_Q           , KC_W    , KC_E    , KC_R                , KC_T                   ,                     KC_Y            , KC_U                  , KC_I          , KC_O          , KC_P              ,
-    LCTL_T(KC_A)   , KC_S    , KC_D    , TD(TD_FF_ALT_SPACE) , KC_G                   ,                     KC_H            , KC_J                  , KC_K          , KC_L          , LCTL_T(KC_ENTER)  ,
-    KC_Z           , KC_X    , KC_C    , KC_V                , KC_B                   ,                     KC_N            , KC_M                  , KC_COMM       , KC_DOT        , KC_TAB            ,
-    LSFT_T(KC_ESC) , KC_LWIN , KC_LALT , LALT_T(KC_LNG2)     , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   WINDOW_OR_SPACE , MO(_ARROWS_AND_INPUT) , _______       , _______       , _______           , RSFT_T(KC_LNG1)
+    KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                  , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
+    LCTL_T(KC_A)   , KC_S    , WINDOW_OR_D  , KC_F            , KC_G                   ,                     KC_H     , WINDOW_OR_J           , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
+    KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                  , KC_BTN1          , KC_BTN2   , KC_TAB           ,
+    LSFT_T(KC_ESC) , KC_LWIN , KC_LEFT_CTRL , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
   ),
 
   [_MOUSE] = LAYOUT_universal(
-    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , SCRL_MO_HOR   , KC_BTN5       , XXXXXXX       ,
-    KC_LCTL                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN1    , SCRL_MO       , KC_BTN2       , _______       ,
-    XXXXXXX                , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , SCRL_MO_ZOOM  , XXXXXXX       , XXXXXXX       ,
-    LSFT_T(TO(_QWERTY))    , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    XXXXXXX             , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN4    , SCRL_MO_HOR   , KC_BTN5       , XXXXXXX       ,
+    KC_LCTL             , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , KC_BTN1    , SCRL_MO       , KC_BTN2       , _______       ,
+    XXXXXXX             , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                            XXXXXXX  , XXXXXXX    , SCRL_MO_ZOOM  , XXXXXXX       , XXXXXXX       ,
+    LSFT_T(TO(_QWERTY)) , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             XXXXXXX  , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            LCA(KC_T)  , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    KC_0           , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , KC_BACKSPACE , KC_DELETE     , KC_F7         , XXXXXXX       ,
-    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            XXXXXXX    , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______        , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX      ,             LCTL(KC_C) , LCTL(KC_V)   , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    KC_SLASH       , KC_1          , KC_2          , KC_3          , KC_KP_PLUS        ,                            LCA(KC_T)  , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , KC_KP_MINUS       ,                            XXXXXXX    , KC_BACKSPACE , KC_DELETE     , KC_F7         , XXXXXXX       ,
+    LSFT(KC_8)     , KC_7          , KC_8          , KC_9          , KC_EQUAL          ,                            XXXXXXX    , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             _______    , _______      , KC_BTN4       , KC_BTN5       , XXXXXXX       , _______
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
-    LSFT(KC_4)       , LSFT(KC_5)    , LSFT(KC_6)    , LSFT(KC_7)    , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_EQUAL , LSFT(KC_EQUAL) ,
-    LSFT(KC_1)       , LSFT(KC_2)    , LSFT(KC_3)    , KC_GRAVE      , LSFT(KC_GRAVE)     ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE , LSFT(KC_QUOTE) ,
-    KC_SEMICOLON     , XXXXXXX       , XXXXXXX       , KC_BACKSLASH  , LSFT(KC_BACKSLASH) ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH , LSFT(KC_SLASH) ,
-    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX            , XXXXXXX   ,              LCTL(KC_X)         , XXXXXXX               , XXXXXXX                , XXXXXXX  , XXXXXXX        , _______
+    LSFT(KC_4)       , LSFT(KC_5)    , LSFT(KC_6)    , LSFT(KC_7)  , XXXXXXX        ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_BACKSLASH , LSFT(KC_BACKSLASH) ,
+    LSFT(KC_1)       , LSFT(KC_2)    , LSFT(KC_3)    , KC_GRAVE    , LSFT(KC_GRAVE) ,                          KC_COMMA           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE     , LSFT(KC_QUOTE)     ,
+    KC_SEMICOLON     , XXXXXXX       , XXXXXXX       , XXXXXXX     , XXXXXXX        ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_DOT       , LSFT(KC_SLASH)     ,
+    _______          , XXXXXXX       , XXXXXXX       , _______     , _______        , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX      , XXXXXXX            , _______
   ),
 
   [_ARROWS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , XXXXXXX        ,
-    XXXXXXX          , KC_BACKSPACE  , KC_DELETE     , XXXXXXX       , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    _______          , AML_TO        , XXXXXXX       , LCTL(KC_A)    , LCS(KC_Z)         , LCTL(KC_Z)  ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
+    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                          LCTL(KC_Y) , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , XXXXXXX        ,
+    LCTL(KC_A)       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
+    LCTL(KC_Z)       , LCTL(KC_X)    , LCTL(KC_C)    , LCTL(KC_V)    , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
+    _______          , XXXXXXX       , XXXXXXX       , _______       , _______           , _______  ,                  _______ , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
   [_WINDOW_AND_FN] = LAYOUT_universal(
@@ -95,6 +102,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , SWIN(KC_LEFT)     , LWIN(KC_UP)   , SWIN(KC_RIGHT)   , XXXXXXX        ,
     KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        ,
     _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX           , XXXXXXX       , XXXXXXX          , XXXXXXX        , _______
+  ),
+
+  [_SIDE_SCROLL] = LAYOUT_universal(
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+  ),
+
+  [_ZOOM] = LAYOUT_universal(
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+   _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   // keymap template
@@ -108,8 +129,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // Auto enable scroll mode when the highest layer is 3
-    keyball_set_scroll_mode(get_highest_layer(state) == 3);
+    // reset
+    unregister_code(KC_LEFT_SHIFT);
+    unregister_code(KC_LEFT_CTRL);
+    keyball_set_scroll_mode(false);
+
+    // set scroll mode
+    uint8_t current_layer = get_highest_layer(state);
+    switch (current_layer) {
+       case _SYMBOLS:
+         // scroll
+         keyball_set_scroll_mode(true);
+         break;
+       case _SIDE_SCROLL:
+         // side scroll
+         register_code(KC_LEFT_SHIFT);
+         keyball_set_scroll_mode(true);
+         break;
+       case _ZOOM:
+         // zoom
+         register_code(KC_LEFT_CTRL);
+         keyball_set_scroll_mode(true);
+         break;
+    }
     return state;
 }
 
