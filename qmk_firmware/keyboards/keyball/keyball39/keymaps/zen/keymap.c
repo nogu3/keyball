@@ -77,23 +77,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
-    KC_SLASH       , KC_1          , KC_2          , KC_3          , KC_KP_PLUS        ,                            LCA(KC_T)  , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , KC_KP_MINUS       ,                            XXXXXXX    , KC_BACKSPACE , KC_DELETE     , KC_F7         , XXXXXXX       ,
+    KC_SLASH       , KC_1          , KC_2          , KC_3          , KC_PLUS           ,                            XXXXXXX    , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , KC_MINUS          ,                            XXXXXXX    , KC_BACKSPACE , KC_DELETE     , KC_F7         , XXXXXXX       ,
     LSFT(KC_8)     , KC_7          , KC_8          , KC_9          , KC_EQUAL          ,                            XXXXXXX    , XXXXXXX      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             _______    , _______      , KC_BTN4       , KC_BTN5       , XXXXXXX       , _______
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
     LSFT(KC_4)       , LSFT(KC_5)     , LSFT(KC_6)    , LSFT(KC_7)  , XXXXXXX        ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_BACKSLASH , LSFT(KC_BACKSLASH) ,
-    LSFT(KC_1)       , LSFT(KC_2)     , LSFT(KC_3)    , KC_GRAVE    , LSFT(KC_GRAVE) ,                          KC_KP_MINUS        , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE     , LSFT(KC_QUOTE)     ,
+    LSFT(KC_1)       , LSFT(KC_2)     , LSFT(KC_3)    , KC_GRAVE    , LSFT(KC_GRAVE) ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE     , LSFT(KC_QUOTE)     ,
     KC_SEMICOLON     , LSFT(KC_COMMA) , LSFT(KC_DOT)  , KC_COMMA    , KC_DOT         ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH     , LSFT(KC_SLASH)     ,
     _______          , XXXXXXX        , XXXXXXX       , _______     , _______        , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX      , XXXXXXX            , _______
   ),
 
   [_ARROWS_AND_INPUT] = LAYOUT_universal(
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                          LCTL(KC_Y) , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , XXXXXXX        ,
-    LCTL(KC_A)       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
-    LCTL(KC_Z)       , LCTL(KC_X)    , LCTL(KC_C)    , LCTL(KC_V)    , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
+    LCTL(KC_A)       , LCTL(KC_X)    , LCTL(KC_C)    , LCTL(KC_V)    , XXXXXXX           ,                       LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
+    LCTL(KC_Z)       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
     _______          , XXXXXXX       , XXXXXXX       , _______       , _______           , _______  ,                  _______ , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
