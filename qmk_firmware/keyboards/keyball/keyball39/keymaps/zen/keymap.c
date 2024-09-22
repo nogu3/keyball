@@ -121,7 +121,7 @@ bool is_init = true;
 void oledkit_render_info_user(void) {
     // FIXME use pointing_device_init_user
     if (is_init) {
-      set_auto_mouse_enable(true);
+      // set_auto_mouse_enable(true);
       is_init = false;
     }
 
