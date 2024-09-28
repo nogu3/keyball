@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                  , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
     LCTL_T(KC_A)   , KC_S    , NUMBERS_OR_D , KC_F            , KC_G                   ,                     KC_H     , WINDOW_OR_J           , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
     KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                  , KC_BTN1          , KC_BTN2   , KC_TAB           ,
-    LSFT_T(KC_ESC) , KC_LWIN , KC_LEFT_CTRL , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
+    RSFT_T(KC_ESC) , KC_LWIN , KC_LEFT_CTRL , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
