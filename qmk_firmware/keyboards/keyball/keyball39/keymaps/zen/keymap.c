@@ -68,7 +68,6 @@ tap_dance_action_t tap_dance_actions[] = {
 #define WINDOW_OR_J LT(_FUNCTION,KC_J)
 #define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT,KC_D)
 #define MOUSE_OR_D LT(_MOUSE,KC_D)
-#define NUMBERS_OR_F LT(_NUMBERS_AND_INPUT,KC_F)
 #define SCROLL_OR_K LT(_SYMBOLS,KC_K)
 #define SIDE_SCROLL_OR_I LT(_SIDE_SCROLL,KC_I)
 #define ZOOM_OR_O LT(_ZOOM,KC_O)
@@ -77,9 +76,9 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_universal(
     KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                  , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
-    LCTL_T(KC_A)   , KC_S    , MOUSE_OR_D   , NUMBERS_OR_F    , KC_G                   ,                     KC_H     , WINDOW_OR_J           , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
+    LCTL_T(KC_A)   , KC_S    , MOUSE_OR_D   , KC_F            , KC_G                   ,                     KC_H     , WINDOW_OR_J           , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
     KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                  , KC_COMMA         , KC_DOT    , KC_MINUS         ,
-    RSFT_T(KC_ESC) , KC_LWIN , KC_TAB       , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
+    RSFT_T(KC_ESC) , KC_BTN2 , KC_BTN1      , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
   ),
 
   [_MOUSE] = LAYOUT_universal(
@@ -91,8 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
     XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            XXXXXXX    , KC_DELETE    , CUT           , FULL_SCR      , PASTE         ,
-    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , KC_BACKSPACE , COPY          , KC_F7         , XXXXXXX      ,
-    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            PREV_WIN   , NEXT_WIN     , KC_BTN1       , KC_BTN2        , XXXXXXX       ,
+    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , KC_BACKSPACE , COPY          , KC_F7         , XXXXXXX       ,
+    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            PREV_WIN   , NEXT_WIN     , XXXXXXX       , XXXXXXX       , KC_TAB        ,
     _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             _______    , _______      , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
@@ -104,10 +103,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ARROWS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                          LCTL(KC_Y)  , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                       LCTL(KC_LEFT)  , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             ZOOM_OUT , ZOOM_IN    , KC_BTN4       , KC_BTN5       , XXXXXXX        ,
-    _______          , XXXXXXX       , XXXXXXX       , _______       , _______           , _______  ,                  _______  , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
+    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                           LCTL(KC_Y) , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
+    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
+    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             ZOOM_OUT , ZOOM_IN    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
+    _______          , KC_BTN4       , KC_BTN5       , _______       , _______           , _______  ,                  _______  , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
   [_FUNCTION] = LAYOUT_universal(
@@ -121,14 +120,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-   _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_ZOOM] = LAYOUT_universal(
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-   _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   // keymap template
@@ -150,20 +149,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     // set scroll mode
     uint8_t current_layer = get_highest_layer(state);
     switch (current_layer) {
-       case _SYMBOLS:
-         // scroll
-         keyball_set_scroll_mode(true);
-         break;
-       case _SIDE_SCROLL:
-         // side scroll
-         register_code(KC_LEFT_SHIFT);
-         keyball_set_scroll_mode(true);
-         break;
-       case _ZOOM:
-         // zoom
-         register_code(KC_LEFT_CTRL);
-         keyball_set_scroll_mode(true);
-         break;
+        case _SYMBOLS:
+          // scroll
+          keyball_set_scroll_mode(true);
+          break;
+        case _SIDE_SCROLL:
+          // side scroll
+          register_code(KC_LEFT_SHIFT);
+          keyball_set_scroll_mode(true);
+          break;
+        case _ZOOM:
+          // zoom
+          register_code(KC_LEFT_CTRL);
+          keyball_set_scroll_mode(true);
+          break;
     }
     return state;
 }
