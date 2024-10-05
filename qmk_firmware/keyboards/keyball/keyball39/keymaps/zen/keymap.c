@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ARROWS_AND_INPUT] = LAYOUT_universal(
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                           LCTL(KC_Y) , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
+    KC_LEFT_CTRL     , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             ZOOM_OUT , ZOOM_IN    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
     _______          , KC_BTN4       , KC_BTN5       , _______       , _______           , _______  ,                  _______  , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
