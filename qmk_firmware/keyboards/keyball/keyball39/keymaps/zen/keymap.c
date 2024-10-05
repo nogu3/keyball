@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     KC_BTN4          , KC_BTN2       , XXXXXXX       , KC_BTN1       , KC_BTN5           ,                             KC_BTN4 , KC_BTN1    , XXXXXXX       , KC_BTN2       , KC_BTN5       ,
     XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-   _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
