@@ -202,7 +202,9 @@ void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode, uint16_t
     keyball_set_scroll_mode(enable_scroll_mode);
 }
 
+uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    mod_state = get_mods();
     switch (keycode) {
       case SCRL_MO_HOR:
         keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_SHIFT);
@@ -210,6 +212,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case SCRL_MO_ZOOM:
         keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_CTRL);
         return false;
+      case KC_F:
+        // ref: https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
+        {
+          static bool click_registered;
+          if(record->event.pressed) {
+            if(mod_state & MOD_MASK_ALT){
+              del_mods(MOD_MASK_ALT);
+              register_code(KC_BTN1);
+              click_registered = true;
+              set_mods(mod_state);
+              return false;
+            }
+          } else {
+            if(click_registered) {
+              unregister_code(KC_BTN1);
+              click_registered = false;
+              return false;
+            }
+          }
+        }
+
+        break;
     }
 
     return true;
