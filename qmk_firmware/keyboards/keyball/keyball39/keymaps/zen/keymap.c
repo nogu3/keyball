@@ -36,18 +36,9 @@ enum Layers {
   _ZOOM,
 };
 
-enum TapDances {
-  TD_FF_ALT_SPACE,
-};
-
 enum CustomKeycodes {
   SCRL_MO_HOR = SAFE_RANGE,
   SCRL_MO_ZOOM,
-};
-
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for f, twice for Alt + Space
-    [TD_FF_ALT_SPACE] = ACTION_TAP_DANCE_DOUBLE(KC_F, LALT(KC_SPACE)),
 };
 
 // alias
