@@ -41,6 +41,7 @@ enum CustomKeycodes {
 
 // alias
 #define LCS(kc) LCTL(LSFT(kc))
+#define KC_D_QUOTE KC_DQUO
 // print screen
 #define PR_SCR LCS(KC_S)
 #define COPY LCTL(KC_C)
@@ -77,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
-    KC_DOLLAR        , LSFT(KC_5)     , LSFT(KC_6)    , LSFT(KC_7)   , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_EQUAL     , LSFT(KC_EQUAL)     ,
-    LSFT(KC_1)       , LSFT(KC_2)     , LSFT(KC_3)    , KC_GRAVE     , LSFT(KC_GRAVE)     ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE     , LSFT(KC_QUOTE)     ,
-    KC_SEMICOLON     , LSFT(KC_COMMA) , LSFT(KC_DOT)  , KC_BACKSLASH , LSFT(KC_BACKSLASH) ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH     , LSFT(KC_SLASH)     ,
-    _______          , XXXXXXX        , XXXXXXX       , _______      , _______            , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX      , XXXXXXX            , _______
+    KC_DOLLAR        , KC_PERCENT     , KC_HASH       , KC_AMPERSAND , KC_ASTERISK        ,                          KC_UNDERSCORE      , KC_LEFT_PAREN         , KC_RIGHT_PAREN         , KC_EQUAL        , KC_PLUS            ,
+    KC_EXCLAIM       , KC_LCBR        , KC_RCBR       , KC_GRAVE     , KC_SEMICOLON       ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_D_QUOTE      , KC_QUOTE           ,
+    KC_CIRC          , XXXXXXX        , XXXXXXX       , KC_AT        , KC_TILDE           ,                          KC_COLON           , KC_PIPE               , KC_BACKSLASH           , KC_SLASH        , KC_QUESTION        ,
+    _______          , XXXXXXX        , XXXXXXX       , _______      , _______            , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX         , XXXXXXX            , _______
   ),
 
   [_ARROWS_AND_FN] = LAYOUT_universal(
