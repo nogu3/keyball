@@ -42,7 +42,12 @@ enum CustomKeycodes {
 // alias
 #define LCS(kc) LCTL(LSFT(kc))
 #define KC_D_QUOTE KC_DQUO
-// print screen
+#define KC_L_BRACKET KC_LEFT_BRACKET
+#define KC_R_BRACKET KC_RIGHT_BRACKET
+#define KC_L_PAREN KC_LEFT_PAREN
+#define KC_R_PAREN KC_RIGHT_PAREN
+
+// shortcut
 #define PR_SCR LCS(KC_S)
 #define COPY LCTL(KC_C)
 #define PASTE LCTL(KC_V)
@@ -52,65 +57,77 @@ enum CustomKeycodes {
 #define FULL_SCR LWIN(KC_UP)
 #define NEXT_WIN SWIN(KC_RIGHT)
 #define PREV_WIN SWIN(KC_LEFT)
+#define HOME LCTL(KC_LEFT)
+#define END LCTL(KC_RIGHT)
+
+// hold and tap
+#define ALT_OR_EN LALT_T(KC_LNG2)
+#define SFT_OR_ESC RSFT_T(KC_ESC)
+#define CTL_OR_ENTER LCTL_T(KC_ENTER)
+
+// MO
+#define TO_NUMBERS MO(_NUMBERS_AND_INPUT)
+#define TO_AROOWS MO(_ARROWS_AND_FN)
 
 // LT
-#define SYMBOL_OR_SPACE LT(_SYMBOLS,KC_SPACE)
+#define SYM_OR_SPACE LT(_SYMBOLS,KC_SPACE)
 #define FN_OR_J LT(_ARROWS_AND_FN,KC_J)
 #define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT,KC_D)
 #define SCROLL_OR_K LT(_SYMBOLS,KC_K)
-#define SIDE_SCROLL_OR_I LT(_SIDE_SCROLL,KC_I)
+#define S_SCRL_OR_I LT(_SIDE_SCROLL,KC_I)
 #define ZOOM_OR_O LT(_ZOOM,KC_O)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // space wide is 15 charactor between comma and comma
   [_QWERTY] = LAYOUT_universal(
-    KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
-    LCTL_T(KC_A)   , KC_S    , NUMBERS_OR_D , KC_F            , KC_G                   ,                     KC_H     , FN_OR_J             , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
-    KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                , KC_COMMA         , KC_DOT    , KC_MINUS         ,
-    RSFT_T(KC_ESC) , KC_BTN2 , KC_BTN1      , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_FN)  , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
+    KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          ,                  KC_Y          , KC_U          , S_SCRL_OR_I   , ZOOM_OR_O     , KC_P          ,
+    LCTL_T(KC_A)  , KC_S          , NUMBERS_OR_D  , KC_F          , KC_G          ,                  KC_H          , FN_OR_J       , SCROLL_OR_K   , KC_L          , CTL_OR_ENTER  ,
+    KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          ,                  KC_N          , KC_M          , KC_COMMA      , KC_DOT        , KC_MINUS      ,
+    SFT_OR_ESC    , KC_BTN2       , KC_BTN1       , ALT_OR_EN     , TO_NUMBERS    , SYM_OR_SPACE  ,  KC_SPACE      , TO_AROOWS     , XXXXXXX       , XXXXXXX       , XXXXXXX       , RSFT_T(KC_LNG1)
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX        , KC_1          , KC_2          , KC_3          , XXXXXXX           ,                            XXXXXXX    , KC_DELETE    , CUT           , FULL_SCR      , PASTE         ,
-    LCTL_T(KC_0)   , KC_4          , KC_5          , KC_6          , XXXXXXX           ,                            XXXXXXX    , KC_BACKSPACE , COPY          , KC_F7         , XXXXXXX       ,
-    XXXXXXX        , KC_7          , KC_8          , KC_9          , XXXXXXX           ,                            PREV_WIN   , NEXT_WIN     , XXXXXXX       , XXXXXXX       , KC_TAB        ,
-    _______        , XXXXXXX       , XXXXXXX       , _______       , _______           , _______      ,             _______    , _______      , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    XXXXXXX       , KC_1          , KC_2          , KC_3          , XXXXXXX       ,                  XXXXXXX       , KC_DELETE     , CUT           , FULL_SCR      , PASTE         ,
+    LCTL_T(KC_0)  , KC_4          , KC_5          , KC_6          , XXXXXXX       ,                  XXXXXXX       , KC_BACKSPACE  , COPY          , KC_F7         , XXXXXXX       ,
+    XXXXXXX       , KC_7          , KC_8          , KC_9          , XXXXXXX       ,                  PREV_WIN      , NEXT_WIN      , XXXXXXX       , XXXXXXX       , KC_TAB        ,
+    _______       , XXXXXXX       , XXXXXXX       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
-    KC_DOLLAR        , KC_PERCENT     , KC_HASH       , KC_AMPERSAND , KC_ASTERISK        ,                          KC_UNDERSCORE      , KC_LEFT_PAREN         , KC_RIGHT_PAREN         , KC_EQUAL        , KC_PLUS            ,
-    KC_EXCLAIM       , KC_LCBR        , KC_RCBR       , KC_GRAVE     , KC_SEMICOLON       ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_D_QUOTE      , KC_QUOTE           ,
-    KC_CIRC          , XXXXXXX        , XXXXXXX       , KC_AT        , KC_TILDE           ,                          KC_COLON           , KC_PIPE               , KC_BACKSLASH           , KC_SLASH        , KC_QUESTION        ,
-    _______          , XXXXXXX        , XXXXXXX       , _______      , _______            , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX         , XXXXXXX            , _______
+    KC_DOLLAR     , KC_PERCENT    , KC_HASH       , KC_AMPERSAND  , KC_ASTERISK   ,                  KC_UNDS       , KC_L_PAREN    , KC_R_PAREN    , KC_EQUAL      , KC_PLUS       ,
+    KC_EXCLAIM    , KC_LCBR       , KC_RCBR       , KC_GRAVE      , KC_SEMICOLON  ,                  KC_MINUS      , KC_L_BRACKET  , KC_R_BRACKET  , KC_D_QUOTE    , KC_QUOTE      ,
+    KC_CIRC       , XXXXXXX       , XXXXXXX       , KC_AT         , KC_TILDE      ,                  KC_COLON      , KC_PIPE       , KC_BACKSLASH  , KC_SLASH      , KC_QUESTION   ,
+    _______       , XXXXXXX       , XXXXXXX       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_ARROWS_AND_FN] = LAYOUT_universal(
-    XXXXXXX          , KC_F1         , KC_F2         , KC_F3         , KC_F11            ,                              XXXXXXX , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
-    KC_LEFT_CTRL     , KC_F4         , KC_F5         , KC_F6         , KC_F10            ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
-    XXXXXXX          , KC_F7         , KC_F8         , KC_F9         , KC_F12            ,                             ZOOM_OUT , ZOOM_IN    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    _______          , KC_BTN5       , KC_BTN4       , _______       , _______           , _______  ,                  _______  , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
+    XXXXXXX       , KC_F1         , KC_F2         , KC_F3         , KC_F11        ,                  XXXXXXX       , KC_PAGE_UP    , KC_UP         , KC_PAGE_DOWN  , PR_SCR        ,
+    KC_LEFT_CTRL  , KC_F4         , KC_F5         , KC_F6         , KC_F10        ,                  HOME          , KC_LEFT       , KC_DOWN       , KC_RIGHT      , END           ,
+    XXXXXXX       , KC_F7         , KC_F8         , KC_F9         , KC_F12        ,                  ZOOM_OUT      , ZOOM_IN       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______       , KC_BTN5       , KC_BTN4       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_SIDE_SCROLL] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_ZOOM] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   // keymap template
   // [n] = LAYOUT_universal(
-  // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-  // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-  // XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-  // _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+  // XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+  // XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+  // XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+  // _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   // ),
 };
 // clang-format on
