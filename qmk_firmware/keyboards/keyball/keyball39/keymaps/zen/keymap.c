@@ -27,11 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum Layers {
   _QWERTY,
-  _MOUSE,
   _NUMBERS_AND_INPUT,
   _SYMBOLS,
-  _ARROWS_AND_INPUT,
-  _FUNCTION,
+  _ARROWS_AND_FN,
   _SIDE_SCROLL,
   _ZOOM,
 };
@@ -56,9 +54,8 @@ enum CustomKeycodes {
 
 // LT
 #define SYMBOL_OR_SPACE LT(_SYMBOLS,KC_SPACE)
-#define WINDOW_OR_J LT(_FUNCTION,KC_J)
+#define FN_OR_J LT(_ARROWS_AND_FN,KC_J)
 #define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT,KC_D)
-#define MOUSE_OR_D LT(_MOUSE,KC_D)
 #define SCROLL_OR_K LT(_SYMBOLS,KC_K)
 #define SIDE_SCROLL_OR_I LT(_SIDE_SCROLL,KC_I)
 #define ZOOM_OR_O LT(_ZOOM,KC_O)
@@ -66,17 +63,10 @@ enum CustomKeycodes {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_universal(
-    KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                  , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
-    LCTL_T(KC_A)   , KC_S    , MOUSE_OR_D   , KC_F            , KC_G                   ,                     KC_H     , WINDOW_OR_J           , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
-    KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                  , KC_COMMA         , KC_DOT    , KC_MINUS         ,
-    RSFT_T(KC_ESC) , KC_BTN2 , KC_BTN1      , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_INPUT) , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
-  ),
-
-  [_MOUSE] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    KC_BTN4          , KC_BTN2       , XXXXXXX       , KC_BTN1       , KC_BTN5           ,                             KC_BTN4 , KC_BTN1    , XXXXXXX       , KC_BTN2       , KC_BTN5       ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX    , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+    KC_Q           , KC_W    , KC_E         , KC_R            , KC_T                   ,                     KC_Y     , KC_U                , SIDE_SCROLL_OR_I , ZOOM_OR_O , KC_P             ,
+    LCTL_T(KC_A)   , KC_S    , NUMBERS_OR_D , KC_F            , KC_G                   ,                     KC_H     , FN_OR_J             , SCROLL_OR_K      , KC_L      , LCTL_T(KC_ENTER) ,
+    KC_Z           , KC_X    , KC_C         , KC_V            , KC_B                   ,                     KC_N     , KC_M                , KC_COMMA         , KC_DOT    , KC_MINUS         ,
+    RSFT_T(KC_ESC) , KC_BTN2 , KC_BTN1      , LALT_T(KC_LNG2) , MO(_NUMBERS_AND_INPUT) , SYMBOL_OR_SPACE ,   KC_SPACE , MO(_ARROWS_AND_FN)  , XXXXXXX          , XXXXXXX   , XXXXXXX          , RSFT_T(KC_LNG1)
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
@@ -87,24 +77,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
-    LSFT(KC_4)       , LSFT(KC_5)     , LSFT(KC_6)    , LSFT(KC_7)   , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_EQUAL     , LSFT(KC_EQUAL)     ,
+    KC_DOLLAR        , LSFT(KC_5)     , LSFT(KC_6)    , LSFT(KC_7)   , LSFT(KC_8)         ,                          LSFT(KC_MINUS)     , LSFT(KC_9)            , LSFT(KC_0)             , KC_EQUAL     , LSFT(KC_EQUAL)     ,
     LSFT(KC_1)       , LSFT(KC_2)     , LSFT(KC_3)    , KC_GRAVE     , LSFT(KC_GRAVE)     ,                          KC_MINUS           , KC_LEFT_BRACKET       , KC_RIGHT_BRACKET       , KC_QUOTE     , LSFT(KC_QUOTE)     ,
     KC_SEMICOLON     , LSFT(KC_COMMA) , LSFT(KC_DOT)  , KC_BACKSLASH , LSFT(KC_BACKSLASH) ,                          LSFT(KC_SEMICOLON) , LSFT(KC_LEFT_BRACKET) , LSFT(KC_RIGHT_BRACKET) , KC_SLASH     , LSFT(KC_SLASH)     ,
     _______          , XXXXXXX        , XXXXXXX       , _______      , _______            , _______   ,              _______            , _______               , XXXXXXX                , XXXXXXX      , XXXXXXX            , _______
   ),
 
-  [_ARROWS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                           LCTL(KC_Y) , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
-    KC_LEFT_CTRL     , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
-    XXXXXXX          , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX           ,                             ZOOM_OUT , ZOOM_IN    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
+  [_ARROWS_AND_FN] = LAYOUT_universal(
+    XXXXXXX          , KC_F1         , KC_F2         , KC_F3         , KC_F11            ,                              XXXXXXX , KC_PAGE_UP , KC_UP         , KC_PAGE_DOWN  , PR_SCR         ,
+    KC_LEFT_CTRL     , KC_F4         , KC_F5         , KC_F6         , KC_F10            ,                        LCTL(KC_LEFT) , KC_LEFT    , KC_DOWN       , KC_RIGHT      , LCTL(KC_RIGHT) ,
+    XXXXXXX          , KC_F7         , KC_F8         , KC_F9         , KC_F12            ,                             ZOOM_OUT , ZOOM_IN    , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
     _______          , KC_BTN5       , KC_BTN4       , _______       , _______           , _______  ,                  _______  , _______    , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
-  ),
-
-  [_FUNCTION] = LAYOUT_universal(
-    KC_F12           , KC_F1         , KC_F2         , KC_F3         , XXXXXXX           ,                             XXXXXXX , XXXXXXX     , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    KC_F10           , KC_F4         , KC_F5         , KC_F6         , XXXXXXX           ,                             XXXXXXX , XXXXXXX     , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    KC_F11           , KC_F7         , KC_F8         , KC_F9         , XXXXXXX           ,                             XXXXXXX , XXXXXXX     , XXXXXXX       , XXXXXXX       , XXXXXXX        ,
-    _______          , AML_TO        , XXXXXXX       , XXXXXXX       , XXXXXXX           , XXXXXXX     ,               XXXXXXX , XXXXXXX     , XXXXXXX       , XXXXXXX       , XXXXXXX        , _______
   ),
 
   [_SIDE_SCROLL] = LAYOUT_universal(
