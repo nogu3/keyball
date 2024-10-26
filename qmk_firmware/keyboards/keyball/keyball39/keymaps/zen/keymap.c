@@ -48,6 +48,7 @@ enum CustomKeycodes {
 #define KC_R_PAREN KC_RIGHT_PAREN
 
 // shortcut
+#define LOCK_SCR LCS(KC_R)
 #define PR_SCR LCS(KC_S)
 #define COPY LCTL(KC_C)
 #define PASTE LCTL(KC_V)
@@ -88,16 +89,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
-    XXXXXXX       , KC_1          , KC_2          , KC_3          , XXXXXXX       ,                  XXXXXXX       , KC_DELETE     , CUT           , FULL_SCR      , PASTE         ,
+    LOCK_SCR       , KC_1          , KC_2          , KC_3          , XXXXXXX       ,                  XXXXXXX       , KC_DELETE     , CUT           , FULL_SCR      , PASTE         ,
     LCTL_T(KC_0)  , KC_4          , KC_5          , KC_6          , XXXXXXX       ,                  XXXXXXX       , KC_BACKSPACE  , COPY          , KC_F7         , XXXXXXX       ,
     XXXXXXX       , KC_7          , KC_8          , KC_9          , XXXXXXX       ,                  PREV_WIN      , NEXT_WIN      , XXXXXXX       , XXXXXXX       , KC_TAB        ,
     _______       , XXXXXXX       , XXXXXXX       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
   [_SYMBOLS] = LAYOUT_universal(
-    KC_DOLLAR     , KC_PERCENT    , KC_HASH       , KC_AMPERSAND  , KC_ASTERISK   ,                  KC_UNDS       , KC_L_PAREN    , KC_R_PAREN    , KC_EQUAL      , KC_PLUS       ,
+    KC_DOLLAR     , KC_PERCENT    , KC_HASH       , KC_AMPERSAND  , KC_ASTERISK   ,                  KC_AT         , KC_L_PAREN    , KC_R_PAREN    , KC_EQUAL      , KC_PLUS       ,
     KC_EXCLAIM    , KC_LCBR       , KC_RCBR       , KC_GRAVE      , KC_SEMICOLON  ,                  KC_MINUS      , KC_L_BRACKET  , KC_R_BRACKET  , KC_D_QUOTE    , KC_QUOTE      ,
-    KC_CIRC       , KC_TILDE      , KC_AT         , XXXXXXX       , XXXXXXX       ,                  KC_COLON      , KC_PIPE       , KC_BACKSLASH  , KC_SLASH      , KC_QUESTION   ,
+    KC_CIRC       , KC_UNDS       , XXXXXXX       , KC_TILDE      , XXXXXXX       ,                  KC_COLON      , KC_PIPE       , KC_BACKSLASH  , KC_SLASH      , KC_QUESTION   ,
     _______       , XXXXXXX       , XXXXXXX       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
