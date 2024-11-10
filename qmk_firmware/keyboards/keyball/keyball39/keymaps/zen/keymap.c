@@ -65,6 +65,7 @@ enum CustomKeycodes {
 #define ALT_OR_EN LALT_T(KC_LNG2)
 #define SFT_OR_ESC RSFT_T(KC_ESC)
 #define CTL_OR_ENTER LCTL_T(KC_ENTER)
+#define CTL_OR_SEMIC LCTL_T(KC_SEMICOLON)
 
 // MO
 #define TO_NUMBERS MO(_NUMBERS_AND_INPUT)
@@ -97,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMBOLS] = LAYOUT_universal(
     KC_DOLLAR     , KC_PERCENT    , KC_HASH       , KC_AMPERSAND  , KC_ASTERISK   ,                  KC_AT         , KC_L_PAREN    , KC_R_PAREN    , KC_EQUAL      , KC_PLUS       ,
-    KC_EXCLAIM    , KC_PIPE       , KC_BACKSLASH  , KC_GRAVE      , KC_SEMICOLON  ,                  KC_MINUS      , KC_L_BRACKET  , KC_R_BRACKET  , KC_D_QUOTE    , KC_QUOTE      ,
-    KC_CIRC       , KC_TILDE      , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  KC_COLON      , KC_LCBR       , KC_RCBR       , KC_SLASH      , KC_QUESTION   ,
+    CTL_OR_SEMIC  , KC_PIPE       , KC_BACKSLASH  , KC_GRAVE      , KC_EXCLAIM    ,                  KC_COLON      , KC_L_BRACKET  , KC_R_BRACKET  , KC_QUOTE      , KC_D_QUOTE    ,
+    KC_CIRC       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  KC_TILDE      , KC_LCBR       , KC_RCBR       , KC_SLASH      , KC_QUESTION   ,
     _______       , XXXXXXX       , XXXXXXX       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
