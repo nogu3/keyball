@@ -56,8 +56,8 @@ enum CustomKeycodes {
 #define ZOOM_OUT LCTL(KC_KP_MINUS)
 #define ZOOM_IN LCTL(KC_KP_PLUS)
 #define FULL_SCR LWIN(KC_UP)
-#define LEFT_WIN LWIN(KC_LEFT)
-#define RIGHT_WIN LWIN(KC_RIGHT)
+#define LEFT_WIN SWIN(KC_LEFT)
+#define RIGHT_WIN SWIN(KC_RIGHT)
 #define HOME LCTL(KC_LEFT)
 #define END LCTL(KC_RIGHT)
 
