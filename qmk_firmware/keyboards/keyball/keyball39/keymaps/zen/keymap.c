@@ -162,6 +162,39 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef OLED_ENABLE
+void keyball_oled_render_osinfo(void) {
+    oled_write_char('O', false);
+    oled_write_char('S', false);
+    oled_write_char(' ', false);
+
+    switch (detected_host_os()) {
+        case OS_MACOS:
+            oled_write_char('M', false);
+            oled_write_char('A', false);
+            oled_write_char('C', false);
+            break;
+        case OS_IOS:
+            oled_write_char('I', false);
+            oled_write_char('O', false);
+            oled_write_char('S', false);
+            break;
+        case OS_WINDOWS:
+            oled_write_char('W', false);
+            oled_write_char('I', false);
+            oled_write_char('N', false);
+            break;
+        case OS_LINUX:
+            oled_write_char('L', false);
+            oled_write_char('I', false);
+            oled_write_char('N', false);
+            break;
+        case OS_UNSURE:
+            oled_write_char('U', false);
+            oled_write_char('N', false);
+            oled_write_char('S', false);
+            break;
+    }
+}
 
 #    include "lib/oledkit/oledkit.h"
 bool is_init = true;
@@ -176,6 +209,7 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
     keyball_oled_render_layerinfo();
+    keyball_oled_render_osinfo();
 }
 #endif
 
@@ -252,6 +286,7 @@ void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m, report_mo
     os_variant_t os = detected_host_os();
     switch (os) {
       case OS_MACOS:
+      case OS_IOS:
         r->h = -r->h;
         r->v = -r->v;
         break;
