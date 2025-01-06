@@ -220,7 +220,6 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 }
 #endif
 
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case SCRL_MO_HOR:
@@ -275,9 +274,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-#endif
-
 
 #ifdef KEYBALL_REVERSE_SCROLL
 
