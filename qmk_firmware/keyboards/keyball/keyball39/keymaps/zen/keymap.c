@@ -32,6 +32,7 @@ enum Layers {
   _ARROWS_AND_FN,
   _SIDE_SCROLL,
   _ZOOM,
+  _ALT_TAB,
 };
 
 enum CustomKeycodes {
@@ -121,6 +122,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
     XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
+    _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
+  ),
+
+  [_ALT_TAB] = LAYOUT_universal(
+    XXXXXXX       , KC_TAB        , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , KC_UP         , XXXXXXX       , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , KC_BTN1       , XXXXXXX       ,                  XXXXXXX       , KC_LEFT       , KC_DOWN       , KC_RIGHT      , XXXXXXX       ,
+    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , TO(_QWERTY)   ,
     _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
@@ -238,9 +246,19 @@ void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode, uint16_t
     keyball_set_scroll_mode(enable_scroll_mode);
 }
 
-uint8_t mod_state;
+bool is_alt_tab_mode(void) {
+  uint8_t current_layer = get_highest_layer(layer_state);
+  return current_layer == _ALT_TAB;
+}
+
+bool is_alt_pressed_only(void) {
+  uint8_t mods = get_mods();
+  bool pressed_alt = mods & MOD_MASK_ALT;
+  bool pressed_alt_only =(mods & ~MOD_MASK_ALT) == 0;
+  return pressed_alt && pressed_alt_only;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    mod_state = get_mods();
     switch (keycode) {
       case SCRL_MO_HOR:
         keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_SHIFT);
@@ -248,27 +266,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case SCRL_MO_ZOOM:
         keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_CTRL);
         return false;
-      case KC_F:
+      case KC_W:
         // ref: https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
-        {
-          static bool click_registered;
-          if(record->event.pressed) {
-            if(mod_state & MOD_MASK_ALT){
-              del_mods(MOD_MASK_ALT);
-              register_code(KC_BTN1);
-              click_registered = true;
-              set_mods(mod_state);
-              return false;
-            }
-          } else {
-            if(click_registered) {
-              unregister_code(KC_BTN1);
-              click_registered = false;
+        if(record->event.pressed) {
+          if (!is_alt_tab_mode()) {
+            if(is_alt_pressed_only()){
+              register_code(KC_LALT);
+              tap_code(KC_TAB);
+              layer_on(_ALT_TAB);
               return false;
             }
           }
         }
+        break;
+      case ALT_OR_EN:
+        if(record->event.pressed) {
+          return true;
+        }
+        
 
+        if(is_alt_tab_mode()) {
+          layer_off(_ALT_TAB);
+          unregister_code(KC_LALT);
+          return false;
+        }
         break;
     }
 
