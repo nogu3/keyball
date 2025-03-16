@@ -6,4 +6,10 @@ tasks:
     cmds:
       - util/docker_build.sh keyball/keyball39:zen
 
+  generate_keymap:
+    dir: ../qmk
+    cmds:
+      - util/docker_cmd.sh qmk c2json -kb keyball/keyball39 -km zen --no-cpp ../keyball/qmk_firmware/keyboards/keyball/keyball39/keymaps/zen/keymap.c
+
+
 
