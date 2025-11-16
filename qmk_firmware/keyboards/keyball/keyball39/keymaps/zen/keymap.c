@@ -66,6 +66,7 @@ enum CustomKeycodes {
 #define ALT_OR_EN LALT_T(KC_LNG2)
 #define SFT_OR_ESC RSFT_T(KC_ESC)
 #define CTL_OR_ENTER LCTL_T(KC_ENTER)
+#define CTL_OR_MINUS LCTL_T(KC_MINUS)
 #define CTL_OR_SEMIC LCTL_T(KC_SEMICOLON)
 
 // MO
@@ -74,8 +75,10 @@ enum CustomKeycodes {
 
 // LT
 #define SYM_OR_SPACE LT(_SYMBOLS,KC_SPACE)
+#define ARROWS_OR_ENT LT(_ARROWS_AND_FN,KC_ENTER)
 #define FN_OR_J LT(_ARROWS_AND_FN,KC_J)
 #define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT,KC_D)
+#define NUMS_OR_ENT LT(_NUMBERS_AND_INPUT,KC_ENTER)
 #define SCROLL_OR_K LT(_SYMBOLS,KC_K)
 #define S_SCRL_OR_I LT(_SIDE_SCROLL,KC_I)
 #define ZOOM_OR_O LT(_ZOOM,KC_O)
@@ -85,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // space wide is 15 charactor between comma and comma
   [_QWERTY] = LAYOUT_universal(
     KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          ,                  KC_Y          , KC_U          , S_SCRL_OR_I   , ZOOM_OR_O     , KC_P          ,
-    LCTL_T(KC_A)  , KC_S          , NUMBERS_OR_D  , KC_F          , KC_G          ,                  KC_H          , FN_OR_J       , SCROLL_OR_K   , KC_L          , CTL_OR_ENTER  ,
-    KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          ,                  KC_N          , KC_M          , KC_COMMA      , KC_DOT        , KC_MINUS      ,
-    SFT_OR_ESC    , KC_BTN2       , KC_BTN1       , ALT_OR_EN     , TO_NUMBERS    , SYM_OR_SPACE  ,  KC_SPACE      , TO_AROOWS     , XXXXXXX       , XXXXXXX       , XXXXXXX       , RSFT_T(KC_LNG1)
+    LCTL_T(KC_A)  , KC_S          , KC_D          , KC_F          , KC_G          ,                  KC_H          , KC_J          , SCROLL_OR_K   , KC_L          , CTL_OR_MINUS  ,
+    KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          ,                  KC_N          , KC_M          , KC_COMMA      , KC_DOT        , KC_TAB        ,
+    SFT_OR_ESC    , KC_BTN2       , KC_BTN1       , ALT_OR_EN     , NUMS_OR_ENT   , SYM_OR_SPACE  ,  KC_SPACE      , ARROWS_OR_ENT , XXXXXXX       , XXXXXXX       , XXXXXXX       , RSFT_T(KC_LNG1)
   ),
 
   [_NUMBERS_AND_INPUT] = LAYOUT_universal(
