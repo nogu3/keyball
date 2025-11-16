@@ -157,11 +157,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   case _SYMBOLS:
     // scroll
     keyball_set_scroll_mode(true);
+    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
     break;
   case _SIDE_SCROLL:
     // side scroll
-    register_code(KC_LEFT_SHIFT);
+    // register_code(KC_LEFT_SHIFT);
     keyball_set_scroll_mode(true);
+    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
     break;
   case _ZOOM:
     // zoom
@@ -240,16 +242,6 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record) {
   return false;
 }
 
-void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode,
-                                               uint16_t modifier_key) {
-  if (enable_scroll_mode) {
-    register_code(modifier_key);
-  } else {
-    unregister_code(modifier_key);
-  }
-  keyball_set_scroll_mode(enable_scroll_mode);
-}
-
 bool is_alt_tab_mode(void) {
   uint8_t current_layer = get_highest_layer(layer_state);
   return current_layer == _ALT_TAB;
@@ -264,14 +256,6 @@ bool is_alt_pressed_only(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case SCRL_MO_HOR:
-    keyball_set_scroll_mode_with_modifier_key(record->event.pressed,
-                                              KC_LEFT_SHIFT);
-    return false;
-  case SCRL_MO_ZOOM:
-    keyball_set_scroll_mode_with_modifier_key(record->event.pressed,
-                                              KC_LEFT_CTRL);
-    return false;
   case KC_W:
     // ref:
     // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
@@ -287,6 +271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case ALT_OR_EN:
+    keyball_set_scroll_mode(record->event.pressed);
     if (record->event.pressed) {
       return true;
     }

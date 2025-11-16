@@ -40,7 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for layer
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
-// custom define
+// scroll is horizontal or vertical
+#define KEYBALL_SCROLLSNAP_ENABLE 2
 
+// custom define
 // reverse scroll by detect os
 #define KEYBALL_REVERSE_SCROLL
