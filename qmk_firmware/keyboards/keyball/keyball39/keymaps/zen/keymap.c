@@ -30,14 +30,7 @@ enum Layers {
   _NUMBERS_AND_INPUT,
   _SYMBOLS,
   _ARROWS_AND_FN,
-  _SIDE_SCROLL,
-  _ZOOM,
   _ALT_TAB,
-};
-
-enum CustomKeycodes {
-  SCRL_MO_HOR = SAFE_RANGE,
-  SCRL_MO_ZOOM,
 };
 
 // alias
@@ -65,7 +58,6 @@ enum CustomKeycodes {
 // hold and tap
 #define ALT_OR_EN LALT_T(KC_LNG2)
 #define SFT_OR_ESC RSFT_T(KC_ESC)
-#define CTL_OR_ENTER LCTL_T(KC_ENTER)
 #define CTL_OR_MINUS LCTL_T(KC_MINUS)
 #define CTL_OR_SEMIC LCTL_T(KC_SEMICOLON)
 
@@ -76,19 +68,14 @@ enum CustomKeycodes {
 // LT
 #define SYM_OR_SPACE LT(_SYMBOLS, KC_SPACE)
 #define ARROWS_OR_ENT LT(_ARROWS_AND_FN, KC_ENTER)
-#define FN_OR_J LT(_ARROWS_AND_FN, KC_J)
-#define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT, KC_D)
 #define NUMS_OR_ENT LT(_NUMBERS_AND_INPUT, KC_ENTER)
-#define SCROLL_OR_K LT(_SYMBOLS, KC_K)
-#define S_SCRL_OR_I LT(_SIDE_SCROLL, KC_I)
-#define ZOOM_OR_O LT(_ZOOM, KC_O)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // space wide is 15 charactor between comma and comma
   [_QWERTY] = LAYOUT_universal(
-    KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          ,                  KC_Y          , KC_U          , S_SCRL_OR_I   , ZOOM_OR_O     , KC_P          ,
-    LCTL_T(KC_A)  , KC_S          , KC_D          , KC_F          , KC_G          ,                  KC_H          , KC_J          , SCROLL_OR_K   , KC_L          , CTL_OR_MINUS  ,
+    KC_Q          , KC_W          , KC_E          , KC_R          , KC_T          ,                  KC_Y          , KC_U          , KC_I          , KC_O          , KC_P          ,
+    LCTL_T(KC_A)  , KC_S          , KC_D          , KC_F          , KC_G          ,                  KC_H          , KC_J          , KC_K          , KC_L          , CTL_OR_MINUS  ,
     KC_Z          , KC_X          , KC_C          , KC_V          , KC_B          ,                  KC_N          , KC_M          , KC_COMMA      , KC_DOT        , KC_TAB        ,
     SFT_OR_ESC    , KC_BTN2       , KC_BTN1       , ALT_OR_EN     , NUMS_OR_ENT   , SYM_OR_SPACE  ,  KC_SPACE      , ARROWS_OR_ENT , XXXXXXX       , XXXXXXX       , XXXXXXX       , RSFT_T(KC_LNG1)
   ),
@@ -114,20 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______       , KC_BTN5       , KC_BTN4       , _______       , _______       , _______       ,  _______       , _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
   ),
 
-  [_SIDE_SCROLL] = LAYOUT_universal(
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
-  ),
-
-  [_ZOOM] = LAYOUT_universal(
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,
-    _______       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       ,  XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , XXXXXXX       , _______
-  ),
-
   [_ALT_TAB] = LAYOUT_universal(
     XXXXXXX       , KC_TAB        , XXXXXXX       , XXXXXXX       , XXXXXXX       ,                  XXXXXXX       , XXXXXXX       , KC_UP         , XXXXXXX       , XXXXXXX       ,
     XXXXXXX       , XXXXXXX       , XXXXXXX       , KC_BTN1       , XXXXXXX       ,                  XXXXXXX       , KC_LEFT       , KC_DOWN       , KC_RIGHT      , XXXXXXX       ,
@@ -144,32 +117,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ),
 };
 // clang-format on
+void keyball_set_scroll_mode_and_scroll_snap_mode(
+    keyball_scrollsnap_mode_t scroll_snap_mode) {
+  keyball_set_scroll_mode(true);
+  keyball_set_scrollsnap_mode(scroll_snap_mode);
+}
+
+void keyball_reset_scroll_mode_and_scroll_snap_mode(void) {
+  keyball_set_scroll_mode(false);
+  keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_FREE);
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  // reset
-  unregister_code(KC_LEFT_SHIFT);
-  unregister_code(KC_LEFT_CTRL);
-  keyball_set_scroll_mode(false);
-
   // set scroll mode
   uint8_t current_layer = get_highest_layer(state);
   switch (current_layer) {
-  case _SYMBOLS:
+  case _NUMBERS_AND_INPUT:
     // scroll
-    keyball_set_scroll_mode(true);
-    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+    keyball_set_scroll_mode_and_scroll_snap_mode(
+        KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
     break;
-  case _SIDE_SCROLL:
-    // side scroll
-    // register_code(KC_LEFT_SHIFT);
-    keyball_set_scroll_mode(true);
-    keyball_set_scrollsnap_mode(KEYBALL_SCROLLSNAP_MODE_HORIZONTAL);
-    break;
-  case _ZOOM:
-    // zoom
-    register_code(KC_LEFT_CTRL);
-    keyball_set_scroll_mode(true);
-    break;
+  default:
+    keyball_reset_scroll_mode_and_scroll_snap_mode();
   }
   return state;
 }
@@ -210,15 +179,8 @@ void keyball_oled_render_osinfo(void) {
 }
 
 #include "lib/oledkit/oledkit.h"
-bool is_init = true;
 
 void oledkit_render_info_user(void) {
-  // FIXME use pointing_device_init_user
-  if (is_init) {
-    // set_auto_mouse_enable(true);
-    is_init = false;
-  }
-
   keyball_oled_render_keyinfo();
   keyball_oled_render_ballinfo();
   keyball_oled_render_layerinfo();
@@ -232,15 +194,6 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
   return total_motion > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
 }
 #endif
-
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case SCRL_MO_HOR:
-  case SCRL_MO_ZOOM:
-    return true;
-  }
-  return false;
-}
 
 bool is_alt_tab_mode(void) {
   uint8_t current_layer = get_highest_layer(layer_state);
@@ -271,7 +224,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case ALT_OR_EN:
-    keyball_set_scroll_mode(record->event.pressed);
+    if (record->event.pressed) {
+      keyball_set_scroll_mode_and_scroll_snap_mode(
+          KEYBALL_SCROLLSNAP_MODE_VERTICAL);
+    } else {
+      keyball_reset_scroll_mode_and_scroll_snap_mode();
+    }
+
     if (record->event.pressed) {
       return true;
     }
@@ -308,8 +267,3 @@ void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m,
 
 #endif
 
-// FIXME use pointing_device_init_user
-/* void pointing_device_init_user(void) { */
-/*     // always required before the auto mouse feature will work */
-/*     set_auto_mouse_enable(true); */
-/* } */
