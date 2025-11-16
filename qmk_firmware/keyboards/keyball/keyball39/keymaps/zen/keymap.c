@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "quantum.h"
 #include "lib/keyball/keyball.h"
+#include "quantum.h"
 
 #ifdef OS_DETECTION_ENABLE
-  #include "os_detection.h"
+#include "os_detection.h"
 #endif
 
 enum Layers {
@@ -74,14 +74,14 @@ enum CustomKeycodes {
 #define TO_AROOWS MO(_ARROWS_AND_FN)
 
 // LT
-#define SYM_OR_SPACE LT(_SYMBOLS,KC_SPACE)
-#define ARROWS_OR_ENT LT(_ARROWS_AND_FN,KC_ENTER)
-#define FN_OR_J LT(_ARROWS_AND_FN,KC_J)
-#define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT,KC_D)
-#define NUMS_OR_ENT LT(_NUMBERS_AND_INPUT,KC_ENTER)
-#define SCROLL_OR_K LT(_SYMBOLS,KC_K)
-#define S_SCRL_OR_I LT(_SIDE_SCROLL,KC_I)
-#define ZOOM_OR_O LT(_ZOOM,KC_O)
+#define SYM_OR_SPACE LT(_SYMBOLS, KC_SPACE)
+#define ARROWS_OR_ENT LT(_ARROWS_AND_FN, KC_ENTER)
+#define FN_OR_J LT(_ARROWS_AND_FN, KC_J)
+#define NUMBERS_OR_D LT(_NUMBERS_AND_INPUT, KC_D)
+#define NUMS_OR_ENT LT(_NUMBERS_AND_INPUT, KC_ENTER)
+#define SCROLL_OR_K LT(_SYMBOLS, KC_K)
+#define S_SCRL_OR_I LT(_SIDE_SCROLL, KC_I)
+#define ZOOM_OR_O LT(_ZOOM, KC_O)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -146,107 +146,108 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // reset
-    unregister_code(KC_LEFT_SHIFT);
-    unregister_code(KC_LEFT_CTRL);
-    keyball_set_scroll_mode(false);
+  // reset
+  unregister_code(KC_LEFT_SHIFT);
+  unregister_code(KC_LEFT_CTRL);
+  keyball_set_scroll_mode(false);
 
-    // set scroll mode
-    uint8_t current_layer = get_highest_layer(state);
-    switch (current_layer) {
-        case _SYMBOLS:
-          // scroll
-          keyball_set_scroll_mode(true);
-          break;
-        case _SIDE_SCROLL:
-          // side scroll
-          register_code(KC_LEFT_SHIFT);
-          keyball_set_scroll_mode(true);
-          break;
-        case _ZOOM:
-          // zoom
-          register_code(KC_LEFT_CTRL);
-          keyball_set_scroll_mode(true);
-          break;
-    }
-    return state;
+  // set scroll mode
+  uint8_t current_layer = get_highest_layer(state);
+  switch (current_layer) {
+  case _SYMBOLS:
+    // scroll
+    keyball_set_scroll_mode(true);
+    break;
+  case _SIDE_SCROLL:
+    // side scroll
+    register_code(KC_LEFT_SHIFT);
+    keyball_set_scroll_mode(true);
+    break;
+  case _ZOOM:
+    // zoom
+    register_code(KC_LEFT_CTRL);
+    keyball_set_scroll_mode(true);
+    break;
+  }
+  return state;
 }
 
 #ifdef OLED_ENABLE
 void keyball_oled_render_osinfo(void) {
+  oled_write_char('O', false);
+  oled_write_char('S', false);
+  oled_write_char(' ', false);
+
+  switch (detected_host_os()) {
+  case OS_MACOS:
+    oled_write_char('M', false);
+    oled_write_char('A', false);
+    oled_write_char('C', false);
+    break;
+  case OS_IOS:
+    oled_write_char('I', false);
     oled_write_char('O', false);
     oled_write_char('S', false);
-    oled_write_char(' ', false);
-
-    switch (detected_host_os()) {
-        case OS_MACOS:
-            oled_write_char('M', false);
-            oled_write_char('A', false);
-            oled_write_char('C', false);
-            break;
-        case OS_IOS:
-            oled_write_char('I', false);
-            oled_write_char('O', false);
-            oled_write_char('S', false);
-            break;
-        case OS_WINDOWS:
-            oled_write_char('W', false);
-            oled_write_char('I', false);
-            oled_write_char('N', false);
-            break;
-        case OS_LINUX:
-            oled_write_char('L', false);
-            oled_write_char('I', false);
-            oled_write_char('N', false);
-            break;
-        case OS_UNSURE:
-            oled_write_char('U', false);
-            oled_write_char('N', false);
-            oled_write_char('S', false);
-            break;
-    }
+    break;
+  case OS_WINDOWS:
+    oled_write_char('W', false);
+    oled_write_char('I', false);
+    oled_write_char('N', false);
+    break;
+  case OS_LINUX:
+    oled_write_char('L', false);
+    oled_write_char('I', false);
+    oled_write_char('N', false);
+    break;
+  case OS_UNSURE:
+    oled_write_char('U', false);
+    oled_write_char('N', false);
+    oled_write_char('S', false);
+    break;
+  }
 }
 
-#    include "lib/oledkit/oledkit.h"
+#include "lib/oledkit/oledkit.h"
 bool is_init = true;
 
 void oledkit_render_info_user(void) {
-    // FIXME use pointing_device_init_user
-    if (is_init) {
-      // set_auto_mouse_enable(true);
-      is_init = false;
-    }
+  // FIXME use pointing_device_init_user
+  if (is_init) {
+    // set_auto_mouse_enable(true);
+    is_init = false;
+  }
 
-    keyball_oled_render_keyinfo();
-    keyball_oled_render_ballinfo();
-    keyball_oled_render_layerinfo();
-    keyball_oled_render_osinfo();
+  keyball_oled_render_keyinfo();
+  keyball_oled_render_ballinfo();
+  keyball_oled_render_layerinfo();
+  keyball_oled_render_osinfo();
 }
 #endif
 
 #ifdef KEYBALL_AUTO_MOUSE_THRESHOLD
 bool auto_mouse_activation(report_mouse_t mouse_report) {
-    int16_t total_motion = abs(mouse_report.x) + abs(mouse_report.y);
-    return total_motion > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+  int16_t total_motion = abs(mouse_report.x) + abs(mouse_report.y);
+  return total_motion > KEYBALL_AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
 }
 #endif
 
-bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case SCRL_MO_HOR:
-        case SCRL_MO_ZOOM:
-            return true;
-    }
-    return false;
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case SCRL_MO_HOR:
+  case SCRL_MO_ZOOM:
+    return true;
+  }
+  return false;
 }
 
-void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode, uint16_t modifier_key) {
-    if (enable_scroll_mode) {
-      register_code(modifier_key);
-    } else {
-      unregister_code(modifier_key);
-    }
-    keyball_set_scroll_mode(enable_scroll_mode);
+void keyball_set_scroll_mode_with_modifier_key(bool enable_scroll_mode,
+                                               uint16_t modifier_key) {
+  if (enable_scroll_mode) {
+    register_code(modifier_key);
+  } else {
+    unregister_code(modifier_key);
+  }
+  keyball_set_scroll_mode(enable_scroll_mode);
 }
 
 bool is_alt_tab_mode(void) {
@@ -257,63 +258,67 @@ bool is_alt_tab_mode(void) {
 bool is_alt_pressed_only(void) {
   uint8_t mods = get_mods();
   bool pressed_alt = mods & MOD_MASK_ALT;
-  bool pressed_alt_only =(mods & ~MOD_MASK_ALT) == 0;
+  bool pressed_alt_only = (mods & ~MOD_MASK_ALT) == 0;
   return pressed_alt && pressed_alt_only;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-      case SCRL_MO_HOR:
-        keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_SHIFT);
-        return false;
-      case SCRL_MO_ZOOM:
-        keyball_set_scroll_mode_with_modifier_key(record->event.pressed, KC_LEFT_CTRL);
-        return false;
-      case KC_W:
-        // ref: https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
-        if(record->event.pressed) {
-          if (!is_alt_tab_mode()) {
-            if(is_alt_pressed_only()){
-              register_code(KC_LALT);
-              tap_code(KC_TAB);
-              layer_on(_ALT_TAB);
-              return false;
-            }
-          }
-        }
-        break;
-      case ALT_OR_EN:
-        if(record->event.pressed) {
-          return true;
-        }
-        
-
-        if(is_alt_tab_mode()) {
-          layer_off(_ALT_TAB);
-          unregister_code(KC_LALT);
+  switch (keycode) {
+  case SCRL_MO_HOR:
+    keyball_set_scroll_mode_with_modifier_key(record->event.pressed,
+                                              KC_LEFT_SHIFT);
+    return false;
+  case SCRL_MO_ZOOM:
+    keyball_set_scroll_mode_with_modifier_key(record->event.pressed,
+                                              KC_LEFT_CTRL);
+    return false;
+  case KC_W:
+    // ref:
+    // https://docs.qmk.fm/feature_advanced_keycodes#checking-modifier-state
+    if (record->event.pressed) {
+      if (!is_alt_tab_mode()) {
+        if (is_alt_pressed_only()) {
+          register_code(KC_LALT);
+          tap_code(KC_TAB);
+          layer_on(_ALT_TAB);
           return false;
         }
-        break;
+      }
+    }
+    break;
+  case ALT_OR_EN:
+    if (record->event.pressed) {
+      return true;
     }
 
-    return true;
+    if (is_alt_tab_mode()) {
+      layer_off(_ALT_TAB);
+      unregister_code(KC_LALT);
+      return false;
+    }
+    break;
+  }
+
+  return true;
 }
 
 #ifdef KEYBALL_REVERSE_SCROLL
 
-void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m, report_mouse_t *r, bool is_left) {
-    // reverse scroll
-    os_variant_t os = detected_host_os();
-    switch (os) {
-      case OS_MACOS:
-      case OS_IOS:
-        r->h = -r->h;
-        r->v = -r->v;
-        break;
-      default:
-        // do nothing
-        break;
-    }
+void keyball_on_apply_motion_to_mouse_scroll_user(keyball_motion_t *m,
+                                                  report_mouse_t *r,
+                                                  bool is_left) {
+  // reverse scroll
+  os_variant_t os = detected_host_os();
+  switch (os) {
+  case OS_MACOS:
+  case OS_IOS:
+    r->h = -r->h;
+    r->v = -r->v;
+    break;
+  default:
+    // do nothing
+    break;
+  }
 }
 
 #endif
